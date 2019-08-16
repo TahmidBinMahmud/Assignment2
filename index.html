@@ -106,8 +106,10 @@
             $('#chatSection').hide();
             $('#timerDiv').hide();
             $('#expired').hide();
+            $('#modalPart').hide();
 
             var user = {name:"", session:""};
+            // var chat = {session:"", message:""};
             $('#login').submit(function (e) {
                 e.preventDefault(); // prevents page reloading
                 user.name = $('#userName').val();
@@ -123,7 +125,9 @@
                 });
                 $('#login').hide();
                 // $('#chatSection').show();
+                $('#modalPart').show();
                 $('#timerDiv').show();
+                $('#stopTimer').prop('disabled', true)
                 //console.log(userName);
                 console.log(sessionName);
                 $('#session').html(sessionName);
@@ -148,8 +152,24 @@
             });
             socket.on('chat message', function (msg) {
                 $('#messages').append($('#userName').val(), $('<li>').text(msg));
+                var array = $('#messages').map(function(){
+                return $.trim($(this).text());
+            }).get();
+            console.log(array);
+            // var chat = {session:"", message:""};
+            // chat.session = $('#sessionName').val();
+            // // console.log($('#sessionName').val());
+            // chat.message = $(array).get();
+            // $.ajax({
+            //     method: "POST",
+            //     url: "/chat/new",
+            //     data: chat
+            // }).done(function (response) {
+            //     console.log(response);
+            // }).fail(function (response) {
+            //     console.log(response.responseText);
+            // });
             });
-
             document.getElementById('timer').innerHTML =
                 01 + ":" + 00;
 
@@ -157,6 +177,7 @@
 
             $("#startTimer").click(function () {
             startTimer();
+            $('#stopTimer').prop('disabled', false)
             $('#chatSection').show()
             $("#startTimer").hide();
             });
@@ -196,6 +217,18 @@
                 if (sec < 0) { sec = "59" };
                 return sec;
             }
+        
+            $('#getUsers').click(function (event) {
+                $.ajax({
+                    method: "GET",
+                    url: "/user/list"
+                }).done(function (response) {
+                    console.log(response);
+                }).fail(function (response) {
+                    console.log(response.responseText);
+                });
+            });
+        
         });
 
     </script>
@@ -220,6 +253,42 @@
         <div id="expired" class="alert alert-danger">
                 <strong>Session Expired!</strong> The current chat session has expired. Please reconnect.
         </div>
+
+        <div id="modalPart" class="container col col-md-3 offset-md-10">
+            <div style="position: fixed; top: 10px"><h2>User List</h2>
+            <!-- Button to Open the Modal -->
+            <button id="getUsers" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+              Open List
+            </button>
+        </div>
+          
+            <!-- The Modal -->
+            <div class="modal" id="myModal">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                
+                  <!-- Modal Header -->
+                  <div class="modal-header">
+                    <h4 class="modal-title">User List</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  
+                  <!-- Modal body -->
+                  <div class="modal-body">
+                    Sorry, can't show the user list here because of limited capability.
+                    Showing in the console only.
+                  </div>
+                  
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            
+          </div>
 
 </body>
 
