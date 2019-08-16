@@ -2,7 +2,7 @@
 Name: 15 MINUTE CHAT APP
 Objective: A chat application that can be used by a group of Users to communicate between themselves. Each session lasts 15 minutes only and the chat closes after the session expires.
 
-RUN "node index.js" to start the server or this link () to run the heroku app version.
+RUN "node index.js" to start the server or this link (https://chatapp15min.herokuapp.com/) to run the heroku app version.
 LANDING PAGE & USER DATABASE: User inputs a User Name and a Session Name to begin chatting. These information gets saved into a database.
 ![Landing Page](https://user-images.githubusercontent.com/50309322/63196139-6003cd00-c096-11e9-9f95-6e978b8de288.PNG)
 ![User Collection](https://user-images.githubusercontent.com/50309322/63196182-7b6ed800-c096-11e9-80f0-f95fd8b9aa51.PNG)
