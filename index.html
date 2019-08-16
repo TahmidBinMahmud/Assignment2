@@ -110,7 +110,7 @@
                 //var userName = $('#userName').val();
                 var sessionName = $('#sessionName').val();
                 $('#login').hide();
-                $('#chatSection').show();
+                // $('#chatSection').show();
                 $('#timerDiv').show();
                 //console.log(userName);
                 console.log(sessionName);
@@ -145,6 +145,7 @@
 
             $("#startTimer").click(function () {
             startTimer();
+            $('#chatSection').show()
             $("#startTimer").hide();
             });
             $("#stopTimer").click(function () {
